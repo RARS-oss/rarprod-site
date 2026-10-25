@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Город I.I.E. в Houdini — кейс · RAR.PROD</title>
+  <meta name="description" content="Как собран город I.I.E. в Houdini: реф, процедурный блокаут, 12 прототипов зданий, монумент-стрелка ОАО, оранжевая луна и мыши, FLIP-цунами, разрушение, AOV и грейд. Плюс шот MOON_010 в Nuke.">
+  <meta name="theme-color" content="#ebe8e1">
+  <meta property="og:title" content="Город I.I.E. в Houdini — кейс · RAR.PROD">
+  <meta property="og:image" content="https://rarprod.online/og.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>try{if(sessionStorage.getItem("px")==="1")document.documentElement.classList.add("px-in")}catch(e){}</script>
+  <script type="module" crossorigin src="./assets/water-D3IKxJzS.js"></script>
+  <script type="module" crossorigin src="./assets/page-BUAFa7o6.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/water-BxBLl6f1.css">
+</head>
+<body data-hdr="light">
+  <header class="hdr">
+    <a class="brand" href="index.html" aria-label="RAR.PROD — на главную"><canvas aria-hidden="true"></canvas>RAR.PROD</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="index.html#works" class="keep"><b>01</b><span>проекты</span></a>
+      <a href="index.html#path"><b>02</b><span>путь</span></a>
+      <a href="#vfx"><span>nuke</span></a>
+      <a href="#overlays"><span>оверлеи</span></a>
+      <a href="more.html" class="keep">все работы ↗</a>
+    </nav>
+    <span class="clock" data-clock aria-label="Московское время">MSK 00:00:00</span>
+  </header>
+
+  <main data-hdr="light">
+    <!-- ============ кейс: город ============ -->
+    <article class="case">
+      <aside class="case__side">
+        <span class="case__k">(10) · город · главный кейс</span>
+        <h1 class="case__h">Город I.I.E.<span>процедурный мегаполис в Houdini для тизера</span></h1>
+        <div>
+          <p class="case__p">Целый город, собранный процедурно: оранжевая луна, стая летучих мышей, монумент-стрелка ОАО, FLIP-цунами и рушащиеся башни. Всё на одной GTX 1060 и 16 ГБ памяти.</p>
+          <nav class="case__steps" aria-label="Шаги кейса" style="margin-top:26px">
+            <a href="#s2">(01) Блокаут</a><a href="#s3">(02) Город</a><a href="#s4">(03) Стрелка</a><a href="#s5">(04) Луна и мыши</a>
+            <a href="#s6">(05) Вода</a><a href="#s7">(06) Разрушение</a><a href="#s8">(07) AOV и грейд</a><a href="#hard">(08) Что было сложно</a>
+          </nav>
+        </div>
+        <dl class="case__meta">
+          <dt>софт</dt><dd>Houdini 21 · Karma · Solaris</dd>
+          <dt>сцена</dt><dd>12 прототипов × 4 LOD</dd>
+          <dt>симуляции</dt><dd>FLIP · RBD Voronoi</dd>
+          <dt>год</dt><dd>2026</dd>
+        </dl>
+      </aside>
+
+      <div class="media">
+        <figure class="m dz zoom" style="aspect-ratio:2560/1072"><img src="media/h/final-moon-arrow.webp" alt="Финальный рендер: монумент-стрелка ОАО на фоне оранжевой луны" fetchpriority="high"></figure>
+        <figure class="m dz zoom" style="aspect-ratio:2560/1070"><img src="media/h/final-city.webp" alt="Финальный рендер: город под оранжевой луной, стая мышей" loading="lazy"></figure>
+
+        <div class="step-h" id="s2"><b>(01)</b><h2>Процедурная массовка</h2>
+          <p>Здания из примитивов, разбивка на районы, проверка масштаба и камер прямо во вьюпорте. Композиция решается здесь — детали не спасут плохой силуэт.</p>
+          <ul><li>зонирование кварталов по высоте</li><li>камера и объектив — до деталей</li><li>первые прогоны в Karma по блокауту</li></ul></div>
+        <div class="two">
+          <figure class="m dz zoom" style="aspect-ratio:1280/790"><img src="media/h/blockout-top.webp" alt="Блокаут города сверху, вьюпорт Houdini" loading="lazy"></figure>
+          <figure class="m dz zoom" style="aspect-ratio:1280/790"><img src="media/h/blockout-street.webp" alt="Блокаут города с уровня улицы" loading="lazy"></figure>
+        </div>
+
+        <div class="step-h" id="s3"><b>(02)</b><h2>12 зданий, которые выглядят как тысяча</h2>
+          <p>12 прототипов по 4 уровня детализации: этажи, окна, крыши, баки, антенны. Город собран инстансами и помещается в память обычного ПК: у камеры — полные модели, вдали — упрощённые.</p>
+          <ul><li>48 кэшей: 12 прототипов × L0–L3</li><li>PBR: бетон, кирпич, ржавый металл</li><li>отдельный лукдев героического здания</li></ul></div>
+        <figure class="m dz zoom" style="aspect-ratio:2800/1172"><img src="media/h/city-hi.webp" alt="Город целиком без фона" loading="lazy"></figure>
+        <div class="two">
+          <figure class="m dz zoom" style="aspect-ratio:16/9"><img src="media/h/karma-viewport.webp" alt="Город во вьюпорте Karma" loading="lazy"></figure>
+          <figure class="m dz zoom" style="aspect-ratio:16/9"><img src="media/h/hero-floors.webp" alt="Лукдев этажей героического здания" loading="lazy" style="object-position:50% 30%"></figure>
+        </div>
+
+        <div class="step-h" id="s4"><b>(03)</b><h2>Монумент ОАО посреди города</h2>
+          <p>Стрелка ОАО стоит в центре как памятник: отдельная лепка, бетонный шейдер, свой свет. На крышах — билборды ОАО, .solutions и «Красивых людей». Город становится декорацией бренда.</p></div>
+        <figure class="m dz zoom" style="aspect-ratio:2000/836"><img src="media/h/monument.webp" alt="Монумент-стрелка ОАО среди небоскрёбов, ночной вариант" loading="lazy"></figure>
+        <div class="two">
+          <figure class="m dz zoom" style="aspect-ratio:2560/1072"><img src="media/h/city-beauty.webp" alt="Город с билбордами ОАО" loading="lazy"></figure>
+          <figure class="m dz zoom" style="aspect-ratio:2560/1072"><img src="media/h/moon-wide.webp" alt="Широкий план: стрелка, луна, город" loading="lazy"></figure>
+        </div>
+
+        <div class="step-h" id="s5"><b>(04)</b><h2>Один источник света — огромная луна</h2>
+          <p>Луна — главный и почти единственный ключ: тёплый контровой, холодный рим по силуэтам, без фронтальной заливки. Небо — параллакс облаков карточками, стая мышей пересекает диск.</p>
+          <ul><li>от глины к шейдеру — тяни ползунок</li><li>стая на частицах, у каждой мыши своя фаза взмаха</li><li>город уходит в силуэт</li></ul></div>
+        <div class="cmp">
+          <img src="media/h/moon-clay.webp" alt="Луна и город: глина" loading="lazy">
+          <img class="after" src="media/h/moon-sky.webp" alt="Луна и город: шейдер, небо и мыши" loading="lazy">
+          <i></i><span>глина</span><span>шейдер + небо</span>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнение: глина и финальный шейдер">
+        </div>
+        <figure class="m dz zoom" style="aspect-ratio:2560/1070"><img src="media/h/moon-bats.webp" alt="Стая летучих мышей на фоне оранжевой луны, грейд grim-VHS" loading="lazy"><span class="m__tag">финал · мыши</span></figure>
+
+        <div class="step-h" id="s6"><b>(05)</b><h2>FLIP-цунами на город</h2>
+          <p>Волна посчитана во FLIP в отдельной лёгкой сцене и подключена кэшем, поверх — мелкая рябь из ocean spectrum. Пена и брызги — отдельными слоями. Размер волн проверял по normal-проходу: свет в beauty обманывает.</p>
+          <ul><li>сетка воды ~1,5 млн точек</li><li>отражение и преломление, IOR 1.33</li><li>пена и брызги — свои материалы и проходы</li></ul></div>
+        <figure class="m dz zoom" style="aspect-ratio:16/9"><img src="media/h/wave-hero.webp" alt="Героическая волна над городом" loading="lazy"></figure>
+        <div class="two">
+          <figure class="m dz zoom" style="aspect-ratio:16/9"><img src="media/h/wave-clay.webp" alt="Волна и город в глине" loading="lazy"></figure>
+          <figure class="m dz zoom" style="aspect-ratio:16/9"><img src="media/h/tsunami.webp" alt="Цунами, постерный кадр" loading="lazy"></figure>
+        </div>
+
+        <div class="step-h" id="s7"><b>(06)</b><h2>Ломается только то, что в кадре</h2>
+          <p>Здания разбиты Вороным заранее, связи рвутся по фронту волны. Физику считают только ближние башни, дальние — прокси. Огонь — лёгкие слои, а не тяжёлый пиро на весь город.</p></div>
+        <div class="two">
+          <figure class="m dz zoom" style="aspect-ratio:16/9"><img src="media/h/fracture.webp" alt="Здания, разбитые на куски Вороным" loading="lazy"></figure>
+          <figure class="m dz zoom" style="aspect-ratio:16/9"><img src="media/h/fire.webp" alt="Огонь в городе под луной" loading="lazy"></figure>
+        </div>
+
+        <div class="step-h" id="s8"><b>(07)</b><h2>Каждый слой — свой проход</h2>
+          <p>Город, луна, волна и брызги рендерятся отдельно: beauty, reflect, refract, normal, depth. Финальный вид — grim-VHS: зерно, развал каналов, лёгкий распад кассеты. Это и есть «система портится» из лора I.I.E.</p></div>
+        <figure class="m dz zoom" style="aspect-ratio:1718/916"><img src="media/h/aov-sheet.webp" alt="Лист AOV: город, луна, волна, брызги" loading="lazy"></figure>
+        <div class="two">
+          <figure class="m dz zoom" style="aspect-ratio:2560/1070"><img src="media/h/moon-shader.webp" alt="Луна: финальный шейдер" loading="lazy"></figure>
+          <figure class="m dz zoom" style="aspect-ratio:2560/1070"><img src="media/h/vhs.webp" alt="Финальный грейд grim-VHS" loading="lazy"></figure>
+        </div>
+
+        <div class="step-h" id="hard"><b>(08)</b><h2>Большая сцена на обычном железе</h2></div>
+        <div class="hard">
+          <div><b>Память</b><p>16 ГБ — меньше, чем просит FLIP такого масштаба. Каждый слой считается в своей лёгкой сцене и подключается кэшем. Главная сцена весит 19 ГБ — её не открываешь рядом с симуляцией.</p></div>
+          <div><b>Рендер вне интерфейса</b><p>Кадры через husk из командной строки, многослойный EXR, проходы вытаскиваются отдельно. Интерфейс не падает, рендер идёт параллельно.</p></div>
+          <div><b>Версии, а не «финал_финал2»</b><p>Каждая веха — отдельный снапшот сцены, откат за минуту. Записи о каждой сессии: что сделано, что сломалось, почему.</p></div>
+          <div><b>Белая вода</b><p>Вода выходила белой. AOV показал, что дело в альбедо, а не в отражении. Чинится за минуту, если смотреть в проходы, а не на beauty.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ Nuke и оверлеи ============ -->
+    <article class="case" id="vfx">
+      <aside class="case__side">
+        <span class="case__k">(09) · Луна · VFX</span>
+        <h2 class="case__h">MOON_010<span>шот на Луне в Nuke</span></h2>
+        <p class="case__p">Станция наводит лазер, луч виден только в пыли, через секунду — искра в кратере. Свет и масштаб по реальным фото NASA и ESO, композ и брейкдаун в Nuke.</p>
+        <dl class="case__meta">
+          <dt>софт</dt><dd>Nuke</dd>
+          <dt>кадры</dt><dd>1001 → 1096</dd>
+          <dt>год</dt><dd>2026</dd>
+        </dl>
+      </aside>
+      <div class="media">
+        <figure class="m m--dark" style="aspect-ratio:1600/844"><video muted loop playsinline preload="none" poster="media/v/nuke-moon.webp" data-src="media/v/nuke-moon.mp4" aria-label="MOON_010: финальный шот"></video><span class="m__tag">финал</span></figure>
+        <figure class="m m--dark" style="aspect-ratio:1600/564"><video muted loop playsinline preload="none" poster="media/v/nuke-moon-breakdown.webp" data-src="media/v/nuke-moon-breakdown.mp4" aria-label="MOON_010: брейкдаун по слоям"></video><span class="m__tag">брейкдаун</span></figure>
+        <figure class="m dz zoom" style="aspect-ratio:1600/848"><img src="media/h/nuke-moon-keys.webp" alt="MOON_010: ключевые кадры с подписями" loading="lazy"></figure>
+      </div>
+    </article>
+
+    <!-- ============ оверлеи ============ -->
+    <article class="case" id="overlays">
+      <aside class="case__side">
+        <span class="case__k">оверлеи · Houdini</span>
+        <h2 class="case__h">Оверлеи<span>элементы для монтажа</span></h2>
+        <p class="case__p">Процедурные слои: капли, споры, молнии. Рендерятся на чёрном или с альфой — монтажёр кладёт их поверх любого видео. Слои BG / MG / FG, светлая и тёмная версии.</p>
+        <dl class="case__meta">
+          <dt>софт</dt><dd>Houdini · Karma</dd>
+          <dt>выход</dt><dd>альфа · на чёрном</dd>
+        </dl>
+      </aside>
+      <div class="media">
+        <div class="jr" style="grid-template-columns:0.5315fr 1.778fr">
+          <figure class="m m--dark" style="--a:0.5315"><video muted loop playsinline preload="none" poster="media/v/drip.webp" data-src="media/v/drip.mp4" aria-label="Оверлей: капли воды"></video><span class="m__tag">капли</span></figure>
+          <figure class="m dz zoom" style="--a:1.778"><img src="media/h/spores.webp" alt="Оверлей: споры на оранжевом небе" loading="lazy"><span class="m__tag">споры</span></figure>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="foot" data-hdr="dark">
+    <a href="index.html">главная</a>
+    <a href="index.html#path">путь</a>
+    <a href="more.html">все работы</a>
+    <a href="#">наверх ↑</a>
+    <span>© RAR.PROD 2026 · для ОАО «Красивые люди»</span>
+  </footer>
+</body>
+</html>
