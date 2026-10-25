@@ -1,1 +1,0 @@
-import{c as e,l as t,i as n}from"./water-D3IKxJzS.js";e();const a=document.querySelector("canvas[data-gk]");a&&t(a,{layout:"wide",font:"G, Arial, sans-serif",mono:"JB, monospace"});const o=document.querySelector("[data-water]");o&&n(o);
